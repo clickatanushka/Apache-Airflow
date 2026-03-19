@@ -1,0 +1,15 @@
+name: 'financial_pipeline'
+version: '1.0.0'
+profile: 'financial_pipeline'
+
+model-paths: ["models"]
+test-paths: ["tests"]
+
+models:
+  financial_pipeline:
+    staging:
+      materialized: view
+    intermediate:
+      materialized: view
+    marts:
+      materialized: table

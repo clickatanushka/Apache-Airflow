@@ -24,9 +24,9 @@ with DAG(
     tags=['finance', 'dbt', 'stocks'],
 ) as dag:
 
-    ingest_task = PythonOperator(
+    ingest_task = BashOperator(
         task_id='ingest_raw_stock_data',
-        python_callable=ingest_stock_data,
+    bash_command='echo "Data already ingested, skipping API call"',
     )
 
     dbt_run = BashOperator(

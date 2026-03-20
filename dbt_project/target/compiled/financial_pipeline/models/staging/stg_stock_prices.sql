@@ -1,5 +1,5 @@
 with source as (
-    select * from {{ source('public', 'raw_stock_prices') }}
+    select * from "airflow"."public"."raw_stock_prices"
 ),
 cleaned as (
     select

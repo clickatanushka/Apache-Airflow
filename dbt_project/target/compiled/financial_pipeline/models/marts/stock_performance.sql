@@ -1,5 +1,5 @@
 with metrics as (
-    select * from {{ ref('int_stock_metrics') }}
+    select * from "airflow"."analytics"."int_stock_metrics"
 ),
 final as (
     select

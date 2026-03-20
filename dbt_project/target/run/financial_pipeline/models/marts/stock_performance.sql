@@ -1,5 +1,15 @@
-with metrics as (
-    select * from {{ ref('int_stock_metrics') }}
+
+  
+    
+
+  create  table "airflow"."analytics"."stock_performance__dbt_tmp"
+  
+  
+    as
+  
+  (
+    with metrics as (
+    select * from "airflow"."analytics"."int_stock_metrics"
 ),
 final as (
     select
@@ -17,3 +27,5 @@ final as (
     from metrics
 )
 select * from final
+  );
+  

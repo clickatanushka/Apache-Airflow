@@ -1,5 +1,10 @@
-with source as (
-    select * from {{ source('public', 'raw_stock_prices') }}
+
+  create view "airflow"."analytics"."stg_stock_prices__dbt_tmp"
+    
+    
+  as (
+    with source as (
+    select * from "airflow"."public"."raw_stock_prices"
 ),
 cleaned as (
     select
@@ -15,3 +20,4 @@ cleaned as (
     where close is not null
 )
 select * from cleaned
+  );

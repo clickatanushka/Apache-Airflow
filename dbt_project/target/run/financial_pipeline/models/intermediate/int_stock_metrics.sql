@@ -1,5 +1,10 @@
-with base as (
-    select * from {{ ref('stg_stock_prices') }}
+
+  create view "airflow"."analytics"."int_stock_metrics__dbt_tmp"
+    
+    
+  as (
+    with base as (
+    select * from "airflow"."analytics"."stg_stock_prices"
 ),
 with_metrics as (
     select
@@ -29,3 +34,4 @@ with_metrics as (
     from base
 )
 select * from with_metrics
+  );

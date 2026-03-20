@@ -1,5 +1,5 @@
 with base as (
-    select * from {{ ref('stg_stock_prices') }}
+    select * from "airflow"."analytics"."stg_stock_prices"
 ),
 with_metrics as (
     select

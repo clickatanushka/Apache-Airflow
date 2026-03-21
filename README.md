@@ -48,6 +48,8 @@ An end-to-end **batch data engineering pipeline** that ingests daily stock marke
 
 ### 1. Ingestion
 Daily OHLCV (Open, High, Low, Close, Volume) data is fetched for **10 major stocks** using the Alpha Vantage API and loaded into PostgreSQL as raw data.
+<img width="1240" height="420" alt="image" src="https://github.com/user-attachments/assets/ae2e576b-d52f-4d59-aa4b-93ab6a430d5c" />
+
 
 **Tickers:** `AAPL, GOOGL, MSFT, AMZN, META, TSLA, NFLX, NVDA, JPM, BAC`
 

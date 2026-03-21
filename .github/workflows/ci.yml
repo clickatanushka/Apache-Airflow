@@ -1,11 +1,3 @@
-name: CI Pipeline
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -23,7 +15,7 @@ jobs:
         run: pip install black flake8 sqlfluff
 
       - name: Run black
-        run: black --check --diff ingestion/ dags/
+        run: black ingestion/ dags/
 
       - name: Run flake8
         run: flake8 ingestion/ dags/

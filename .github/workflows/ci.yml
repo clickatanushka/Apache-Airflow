@@ -23,7 +23,7 @@ jobs:
         run: pip install black flake8 sqlfluff
 
       - name: Run black
-        run: black --check ingestion/ dags/
+        run: black --check --diff ingestion/ dags/
 
       - name: Run flake8
         run: flake8 ingestion/ dags/

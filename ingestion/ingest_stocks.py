@@ -27,13 +27,13 @@ def ingest_stock_data():
 
     for ticker in TICKERS:
         print(f"Fetching {ticker}...")
-        url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&outputsize=compact&apikey={API_KEY}"
+        url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&outputsize=compact&apikey={API_KEY}"  # noqa: E501
         response = requests.get(url)
         data = response.json()
 
         if "Time Series (Daily)" not in data:
             print(
-                f"⚠️ Skipping {ticker}: {data.get('Note') or data.get('Information') or 'unknown error'}"
+                f"Skipping {ticker}: {data.get('Note') or data.get('Information') or 'unknown error'}"  # noqa: E501
             )
             continue
 
@@ -63,7 +63,7 @@ def ingest_stock_data():
     final_df["ingested_at"] = datetime.now()
 
     final_df.to_sql(
-        "raw_stock_prices", engine, if_exists="replace", index=False, schema="public"
+        "raw_stock_prices", engine, if_exists="replace", index=False, schema="public"  # noqa: E501
     )
     print(f"✅ Total: {len(final_df)} rows for {len(all_data)} tickers")
 

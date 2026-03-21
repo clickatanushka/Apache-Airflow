@@ -1,12 +1,6 @@
 from airflow import DAG
-from airflow.operators.python import PythonOperator
 from airflow.operators.bash import BashOperator
 from datetime import datetime, timedelta
-import sys
-
-sys.path.insert(0, "/opt/airflow/ingestion")
-
-from ingest_stocks import ingest_stock_data
 
 default_args = {
     "owner": "anushka",
@@ -27,17 +21,17 @@ with DAG(
 
     ingest_task = BashOperator(
         task_id="ingest_raw_stock_data",
-        bash_command='echo "Data already ingested, skipping API call"',
+        bash_command="python /opt/airflow/ingestion/ingest_stocks.py",
     )
 
     dbt_run = BashOperator(
         task_id="run_dbt_models",
-        bash_command="cd /opt/airflow/dbt_project && dbt run --profiles-dir .",
+        bash_command="cd /opt/airflow/dbt_project && dbt run --profiles-dir .",  # noqa: E501
     )
 
     dbt_test = BashOperator(
         task_id="test_dbt_models",
-        bash_command="cd /opt/airflow/dbt_project && dbt test --profiles-dir .",
+        bash_command="cd /opt/airflow/dbt_project && dbt test --profiles-dir .",  # noqa: E501
     )
 
     ingest_task >> dbt_run >> dbt_test

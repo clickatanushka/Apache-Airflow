@@ -1,7 +1,6 @@
 with base as (
     select * from {{ ref('stg_stock_prices') }}
 ),
-
 with_metrics as (
     select
         *,
@@ -14,15 +13,11 @@ with_metrics as (
         ) as moving_avg_7d,
 
         round(
-            (
-                close_price - lag(close_price) over (
-                    partition by ticker order by price_date
-                )
+            (close_price - lag(close_price) over (
+                partition by ticker order by price_date)
             ) / nullif(lag(close_price) over (
-                partition by ticker order by price_date
-            ), 0) * 100,
-            2
-        ) as daily_return_pct,
+                partition by ticker order by price_date), 0) * 100
+        , 2) as daily_return_pct,
 
         round(
             stddev(close_price) over (
@@ -33,5 +28,4 @@ with_metrics as (
         ) as volatility_30d
     from base
 )
-
 select * from with_metrics

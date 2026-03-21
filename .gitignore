@@ -3,3 +3,5 @@ dbt_project/profiles.yml
 __pycache__/
 logs/
 *.pyc
+dbt_project/target/
+dbt_project/logs/

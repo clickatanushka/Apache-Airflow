@@ -1,7 +1,6 @@
 with metrics as (
     select * from {{ ref('int_stock_metrics') }}
 ),
-
 final as (
     select
         ticker,
@@ -17,5 +16,4 @@ final as (
         end as trend_signal
     from metrics
 )
-
 select * from final

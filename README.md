@@ -2,7 +2,7 @@
 
 An end-to-end **batch data engineering pipeline** that ingests daily stock market data, transforms it through layered dbt models, and orchestrates the entire workflow with Apache Airflow — all containerized with Docker.
 
-> Built as a companion project to a [real-time streaming pipeline](https://github.com/AnushkaJoshi14/kafka-flink-aws-pipeline) using Apache Kafka & Flink, this project covers the **batch processing** side of the modern data engineering stack.
+> Built as a companion project to a [real-time streaming pipeline](https://github.com/clickatanushka/KafkaStockMarketETL) using Apache Kafka & Flink, this project covers the **batch processing** side of the modern data engineering stack.
 
 ---
 
@@ -66,6 +66,8 @@ int_stock_metrics       ← 7-day moving average, daily returns, 30-day volatili
       ▼
 stock_performance       ← final analytics table with trend signals (ABOVE_MA / BELOW_MA)
 ```
+<img width="658" height="602" alt="image" src="https://github.com/user-attachments/assets/3f7bd67c-fb22-4746-ae78-c300d94f674e" />
+
 
 ### 3. Orchestration (Airflow)
 A DAG runs daily at 6PM on weekdays (after US market close) with automatic retries and task dependency management.
@@ -73,6 +75,7 @@ A DAG runs daily at 6PM on weekdays (after US market close) with automatic retri
 ```python
 ingest_raw_stock_data >> run_dbt_models >> test_dbt_models
 ```
+<img width="929" height="649" alt="image" src="https://github.com/user-attachments/assets/37fec3e3-a78f-447b-8c01-a8003a7f6b4e" />
 
 ---
 
@@ -173,6 +176,7 @@ Final analytics-ready table with a **trend signal**:
 
 ## 🔍 Sample Output
 
+
 ```
  ticker | price_date | close_price | moving_avg_7d | trend_signal 
 --------+------------+-------------+---------------+--------------
@@ -181,16 +185,6 @@ Final analytics-ready table with a **trend signal**:
  MSFT   | 2026-03-19 |      415.67 |        412.33 | ABOVE_MA
 ```
 
----
-
-## 🔗 Related Projects
-
-This project is part of a larger data engineering portfolio:
-
-- **Real-Time Pipeline** → [Kafka + Flink + AWS](https://github.com/AnushkaJoshi14/kafka-flink-aws-pipeline) — stream processing of financial transaction data
-- **Batch Pipeline** → This project — daily stock analytics with Airflow + dbt
-
-Together they demonstrate **full-stack data engineering** across both streaming and batch paradigms.
 
 ---
 

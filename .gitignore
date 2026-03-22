@@ -5,3 +5,6 @@ logs/
 *.pyc
 dbt_project/target/
 dbt_project/logs/
+terraform/.terraform
+terraform/*.tfstate
+terraform/*.tfstate.backup

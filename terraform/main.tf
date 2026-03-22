@@ -60,11 +60,17 @@ resource "aws_security_group" "airflow_sg" {
   }
 }
 
+resource "aws_key_pair" "airflow_key" {
+  key_name   = "airflow-key"
+  public_key = file("/home/anushka/.ssh/airflow-key.pub")
+}
+
 # EC2 instance
 resource "aws_instance" "airflow" {
   ami                    = var.ami_id
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.airflow_sg.id]
+  key_name               = aws_key_pair.airflow_key.key_name
 
   user_data = <<-EOF
     #!/bin/bash
@@ -73,8 +79,8 @@ resource "aws_instance" "airflow" {
     sudo systemctl start docker
     sudo usermod -aG docker ubuntu
     cd /home/ubuntu
-    git clone https://github.com/AnushkaJoshi14/financial-data-pipeline.git
-    cd financial-data-pipeline
+    git clone https://github.com/clickatanushka/Apache-Airflow
+    cd Apache-Airflow
     sudo docker compose up -d
   EOF
 
